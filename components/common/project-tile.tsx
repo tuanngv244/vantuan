@@ -14,7 +14,6 @@ const ProjectTile = ({
   const projectCard: MutableRefObject<HTMLDivElement> = useRef(null);
   const {
     name,
-    tech,
     image,
     blurImage,
     description,
@@ -31,28 +30,6 @@ const ProjectTile = ({
     });
   }, [projectCard]);
 
-  const renderTechIcons = (techStack: string[]): React.ReactNode => (
-    <div
-      className={`
-      ${styles.techIcons} w-1/2 h-full absolute left-24 top-0 sm:flex items-center hidden
-    `}
-    >
-      <div className="flex flex-col pb-8">
-        {techStack.map((tech, i) => (
-          <div className={`${i % 2 === 0 && "ml-16"} mb-4`} key={tech}>
-            <Image
-              src={`/projects/tech/${tech}.svg`}
-              alt={tech}
-              height={45}
-              objectFit="contain"
-              width={45}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
   const renderDescription = (description: string): React.ReactNode => (
     <h2
       className="text-lg z-10 tracking-wide font-medium"
@@ -64,7 +41,7 @@ const ProjectTile = ({
 
   const renderProjectName = (name: string): React.ReactNode => (
     <h1
-      className="text-2xl sm:text-3xl z-10 pl-2"
+      className="text-2xl  font-medium sm:text-3xl z-10 pl-2"
       style={{ transform: "translateZ(3rem)" }}
     >
       {name}
@@ -74,15 +51,15 @@ const ProjectTile = ({
   const renderTopBottomGradient = (gradient: string): React.ReactNode => (
     <>
       <div
-        className="absolute top-0 left-0 w-full h-20"
+        className="absolute  top-0 left-0 w-full h-20"
         style={{
-          background: `linear-gradient(180deg, ${gradient} 0%, rgba(0,0,0,0) 100%)`,
+          background: `radial-gradient(180deg, ${gradient} 0%, rgba(0,0,0,0) 100%)`,
         }}
       ></div>
       <div
         className="absolute bottom-0 left-0 w-full h-32"
         style={{
-          background: `linear-gradient(0deg, ${gradient} 10%, rgba(0,0,0,0) 100%)`,
+          background: `radial-gradient(0deg, ${gradient} 10%, rgba(0,0,0,0) 100%)`,
         }}
       ></div>
     </>
@@ -136,7 +113,6 @@ const ProjectTile = ({
         {renderProjectImage(image, blurImage, name)}
         {renderTopBottomGradient(stop1)}
         {renderProjectName(name)}
-        {renderTechIcons(tech)}
         {renderDescription(description)}
       </div>
     </a>

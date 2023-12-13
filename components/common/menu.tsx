@@ -1,40 +1,49 @@
-import { Dispatch, SetStateAction } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  MouseEvent,
+  MouseEventHandler,
+  SetStateAction,
+} from "react";
 import { MENULINKS } from "../../constants";
+import { cn } from "utils/cn";
 
 const Menu = ({
   setmenuVisible,
+  menuVisible,
 }: {
   setmenuVisible: Dispatch<SetStateAction<boolean>>;
+  menuVisible: boolean;
 }) => {
+  const _onScrollIntroEle =
+    (el: { name: string; ref: string }) =>
+    (event: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
+      event.preventDefault();
+      setmenuVisible(!menuVisible);
+      const ele = document.getElementById(el.ref);
+      ele.scrollIntoView({ behavior: "smooth" });
+    };
+
   return (
-    <section
-      className="menu fixed top-0 left-0 w-full h-full overflow-hidden invisible pointer-events-none flex items-center justify-center"
-      style={{ visibility: "hidden" }}
-    >
-      <div className="flex-none overflow-hidden flex items-center justify-center">
-        <div className="text-center opacity-0 overflow-y-auto flex flex-none justify-center items-center max-h-screen">
-          <ul
-            className="list-none py-4 px-0 m-0 block max-h-screen"
-            role="menu"
-          >
-            {MENULINKS.map((el) => (
-              <li
-                className="p-0 m-6 text-2xl block"
-                key={el.name}
-                role="menuitem"
-              >
-                <a
-                  className="link relative inline font-bold text-5xl duration-300 hover:no-underline"
-                  href={`#${el.ref}`}
-                  onClick={setmenuVisible.bind(null, false)}
-                >
-                  {el.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+    <section className="menu  overflow-hidden" style={{}}>
+      <ul
+        className={cn("flex duration-300 flex-nowrap p-0 m-0", {
+          active: menuVisible,
+        })}
+        role="menu"
+      >
+        {MENULINKS.map((el) => (
+          <li className="py-2 px-5  m-0  block" key={el.name} role="menuitem">
+            <a
+              className="link relative inline  text-lg leading-5 duration-300 hover:no-underline"
+              href={`#`}
+              onClick={_onScrollIntroEle(el)}
+            >
+              {el.name}
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 };

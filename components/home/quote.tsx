@@ -37,7 +37,7 @@ const QuoteSection = () => {
   }, [quoteRef, targetSection]);
 
   const renderQuote = (): React.ReactNode => (
-    <div className="tall:py-60 py-72 section-container">
+    <div className="tall:py-60 py-72  section-container">
       <h1
         ref={quoteRef}
         className={`font-medium text-4xl md:text-5xl text-center ${

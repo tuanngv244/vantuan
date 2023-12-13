@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 const SKILL_STYLES = {
   SECTION:
-    "w-full relative select-none mb-24 section-container py-12 flex flex-col justify-center",
+    "w-full relative select-none mb-24 section-container sm:py-8 md:py-12 flex flex-col justify-center",
   SKILL_TITLE: "section-title-sm mb-4 seq",
 };
 
@@ -81,19 +81,19 @@ const SkillsSection = () => {
     <>
       <h3 className={SKILL_STYLES.SKILL_TITLE}>{title}</h3>
       <div
-        className={`flex flex-wrap seq ${
+        className={`flex skills  flex-wrap seq ${
           willChange ? "will-change-opacity" : ""
         }`}
       >
-        {skills.map((skill) => (
-          <Image
-            key={skill}
-            src={`/skills/${skill}.svg`}
-            alt={skill}
-            width={76}
-            height={76}
-            className="skill"
-          />
+        {skills.map((skill, index) => (
+          <p
+            key={index}
+            className={
+              "text-xl skills__item link font-medium text-black leading-5"
+            }
+          >
+            {skill}
+          </p>
         ))}
       </div>
     </>
@@ -119,7 +119,7 @@ const SkillsSection = () => {
                 SKILLS.userInterface
               )}
             </div>
-            <div>{renderSkillColumn("Other Skills", SKILLS.other)}</div>
+            <div>{renderSkillColumn("Other", SKILLS.other)}</div>
           </div>
         </div>
       </div>
